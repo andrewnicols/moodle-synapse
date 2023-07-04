@@ -1,0 +1,9 @@
+keycloak/data/h2
+!keycloak/data/h2/README.md
+homeserver.db
+ssl/ca
+ssl/openssl.cnf
+synapse_data/media_store
+synapse_data/synapse.signing.key
+moodle-config.php
+ACCESSTOKEN

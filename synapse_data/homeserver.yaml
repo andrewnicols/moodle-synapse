@@ -1,0 +1,93 @@
+# Configuration file for Synapse.
+#
+# This is a YAML file: see [1] for a quick introduction. Note in particular
+# that *indentation is important*: all the elements of a list or dictionary
+# should have the same indentation.
+#
+# [1] https://docs.ansible.com/ansible/latest/reference_appendices/YAMLSyntax.html
+#
+# For more information on how to configure Synapse, including a complete accounting of
+# each option, go to docs/usage/configuration/config_documentation.md or
+# https://matrix-org.github.io/synapse/latest/usage/configuration/config_documentation.html
+#
+# DO NOT USE FOR PUBLIC OR PRODUCTION SERVERS
+#
+server_name: "synapse"
+pid_file: /data/homeserver.pid
+public_baseurl: https://synapse:8448/
+listeners:
+  - port: 8008
+    tls: false
+    type: http
+    x_forwarded: true
+    resources:
+      - names: [client, federation]
+        compress: false
+  - port: 8448
+    tls: true
+    type: http
+    x_forwarded: true
+    resources:
+      - names: [client, federation]
+        compress: false
+
+database:
+  name: sqlite3
+  args:
+    database: /data/homeserver.db
+
+log_config: "/data/synapse.log.config"
+
+media_store_path: /data/media_store
+
+registration_shared_secret: "0T15P+W:b=Z*fC=&Z1&l~d#FVx0BMFm~Cd+a-lY7k^Cwtj#Hp7"
+
+report_stats: true
+
+macaroon_secret_key: "4vko7q.~yQ#2^TsYT348drVcr3z,I7aeDdiP:ny6-pi5wPWBjT"
+
+form_secret: "8q+#z6rxg+2~NnTmS^V.0C#q#eM6Er8m7H=Sa*ts^Ot-K&&t9W"
+
+signing_key_path: "/data/synapse.signing.key"
+
+trusted_key_servers:
+  - server_name: "matrix.org"
+suppress_key_server_warning: true
+
+enable_registration: true
+
+enable_registration_without_verification: true
+
+# PEM-encoded X509 certificate for TLS.
+# This certificate, as of Synapse 1.0, will need to be a valid and verifiable
+# certificate, signed by a recognised Certificate Authority.
+#
+# Be sure to use a `.pem` file that includes the full certificate chain including
+# any intermediate certificates (for instance, if using certbot, use
+# `fullchain.pem` as your certificate, not `cert.pem`).
+#
+tls_certificate_path: "/etc/ssl/moodle/localhost.crt"
+# PEM-encoded private key for TLS
+tls_private_key_path: "/etc/ssl/moodle/localhost.key"
+use_insecure_ssl_client_just_for_testing_do_not_use: true
+
+oidc_providers:
+  - idp_id: keycloak
+    idp_name: "Keycloak"
+    issuer: "https://keycloak:8443/realms/moodle/"
+    client_id: "synapse-client"
+    client_secret: "********"
+    scopes: ["openid", "profile"]
+    user_mapping_provider:
+      config:
+        localpart_template: "{{ user.preferred_username }}" # preferred_username is what keycloak returns as the username.
+        display_name_template: "{{ user.name }}"
+        email_template: "{{ user.email }}"
+    backchannel_logout_enabled: false # Optional, will do later
+
+email:
+  smtp_host: mailhog
+  smtp_port: 1025
+  notif_from: "Your Friendly %(app)s homeserver <noreply@example.com>"
+
+# vim:ft=yaml

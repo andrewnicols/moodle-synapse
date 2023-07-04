@@ -1,0 +1,64 @@
+[ req ]
+default_bits       = 2048
+default_keyfile    = /Users/nicols/git/moodlehq/synapse/ssl/certs/localhost.key
+distinguished_name = server_distinguished_name
+req_extensions     = server_req_extensions
+string_mask        = utf8only
+
+# Do not prompt and use the 'hostconfig' section for values.
+prompt              = no
+distinguished_name  = hostconfig
+
+[ hostconfig ]
+countryName             = AU
+stateOrProvinceName     = Western Australia
+localityName            = Perth
+organizationName        = Moodle Pty Ltd
+organizationalUnitName  = Moodle LMS
+commonName              = localhost
+emailAddress            = moodle@example.com
+
+[ server_distinguished_name ]
+
+countryName         = Country Name (2 letter code)
+countryName_default = AU
+
+stateOrProvinceName         = State or Province Name (full name)
+stateOrProvinceName_default = Western Australia
+
+localityName                = Locality Name (eg, city)
+localityName_default        = Perth
+
+organizationName            = Organization Name (eg, company)
+organizationName_default    = Moodle Pty Ltd
+
+organizationalUnitName         = Organizational Unit (eg, division)
+organizationalUnitName_default = Moodle LMS
+
+commonName         = Common Name (e.g. server FQDN or YOUR name)
+commonName_default = localhost
+
+emailAddress         = Email Address
+emailAddress_default = moodle@example.com
+
+[ server_req_extensions ]
+subjectKeyIdentifier    = hash
+basicConstraints        = CA:FALSE
+keyUsage                = digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment
+subjectAltName          = @alternate_names
+[ alternate_names ]
+
+DNS.1 = localhost
+DNS.2 = host.docker.internal
+DNS.3 = exttests.container.docker.internal
+DNS.4 = exttests
+DNS.5 = webserver.container.docker.internal
+DNS.6 = webserver
+DNS.7 = element.container.docker.internal
+DNS.8 = element
+DNS.9 = synapse.container.docker.internal
+DNS.10 = synapse
+DNS.11 = moodlenet.container.docker.internal
+DNS.12 = moodlenet
+DNS.13 = keycloak.container.docker.internal
+DNS.14 = keycloak
