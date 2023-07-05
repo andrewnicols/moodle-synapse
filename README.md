@@ -38,6 +38,12 @@ You may wish to import the CA certificate from `ssl/certs/ca.pem` and trust it a
 
 This will allow you to access the containers easily without any certificate validation issues and may be required for Moodle.
 
+Please note that the certificate included in this repository, was created with a certificate authority whose private key has been destroyed.
+
+This is a single-use Certificate Authority intended for the sole purposes of testing Matrix in Moodle.
+
+If you wish to provide your own certificates, you can use a tool like `mkcert` to create them.
+
 ### MacOS
 
 ```sh
@@ -65,10 +71,17 @@ If you run the command provided, this should add this file into your Moodle site
 
 ## Resetting
 
-If you need to reset, you can run the following script to wipe everything out:
+If you need to reset, you can run the following script to remove the docker containers and all configuration:
 
 ```sh
 ./clean.sh
 ```
 
-Warning: This is destructive!
+You can also copy the `clean-matrix.php` script into your Moodle directory and run this:
+This will remove all configured rooms in Moodle.
+
+```sh
+php clean-matrix.php
+```
+
+Warning: This is destructive! This is intended for developer usage only!
