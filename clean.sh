@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 echo "Stopping and removing any running containers"
-docker-compose rm --stop --force
+docker compose rm --stop --force
 
 echo "Removing any local configuration"
 rm -f ACCESSTOKEN

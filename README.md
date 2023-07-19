@@ -3,7 +3,7 @@
 To setup:
 
 ```sh
-docker-compose up -d
+docker compose up -d
 sleep 10
 ./setup.sh
 ```

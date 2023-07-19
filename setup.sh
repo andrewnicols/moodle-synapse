@@ -5,20 +5,20 @@ SCRIPTDIR=`pwd`
 popd > /dev/null
 
 # Install sqlite3 to set the rate limit override.
-docker-compose exec -it synapse apt-get update
-docker-compose exec -it synapse apt-get install sqlite3
+docker compose exec -it synapse apt-get update
+docker compose exec -it synapse apt-get install sqlite3
 
 # Create the moodlebot user.
-docker-compose exec -it synapse register_new_matrix_user -c /data/homeserver.yaml -u moodlebot -p password -a
+docker compose exec -it synapse register_new_matrix_user -c /data/homeserver.yaml -u moodlebot -p password -a
 
 # Update the rate limit.
-docker-compose exec -it synapse sqlite3 /data/homeserver.db 'insert into ratelimit_override values ("@moodlebot:synapse", 0, 0);'
+docker compose exec -it synapse sqlite3 /data/homeserver.db 'insert into ratelimit_override values ("@moodlebot:synapse", 0, 0);'
 
 # Restart synapse for the rate limit to take effect.
-docker-compose restart synapse
+docker compose restart synapse
 
 # Fetch the access token.
-docker-compose exec -it synapse sqlite3 /data/homeserver.db "SELECT token FROM access_tokens WHERE user_id = '@moodlebot:synapse' ORDER BY ID DESC LIMIT 1;" > ACCESSTOKEN
+docker compose exec -it synapse sqlite3 /data/homeserver.db "SELECT token FROM access_tokens WHERE user_id = '@moodlebot:synapse' ORDER BY ID DESC LIMIT 1;" > ACCESSTOKEN
 ACCESSTOKEN=`cat ACCESSTOKEN`
 
 # Create a moodle configuration.
