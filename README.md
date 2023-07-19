@@ -29,9 +29,13 @@ You probably will want to add aliases to your /etc/hosts file. You can copy/past
 
 This will allow you to access the containers locally using the following URLs:
 
-- Element: https://element:8008
+- Element: https://element:8081
 - Synapse: https://synapse:8448
 - KeyCloak: https://keycloak:8443
+
+There are also non-ssl variants for both Synapse, and KeyCloak:
+- Synapse: http://synapse:8008
+- KeyCloak: http://keycloak:8080
 
 ## Trusting
 
