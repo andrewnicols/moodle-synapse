@@ -3,6 +3,7 @@
 To setup:
 
 ```sh
+chmod 777 synapse_data
 docker compose up -d
 sleep 10
 ./setup.sh
