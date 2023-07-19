@@ -29,6 +29,7 @@ $tables = [
     'communication',
     'communication_user',
     'matrix_rooms',
+    'matrix_room',
 ];
 
 mtrace("Resetting all configured communication settings");
