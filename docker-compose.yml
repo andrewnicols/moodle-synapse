@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   keycloak:
-    image: quay.io/keycloak/keycloak:latest
+    image: quay.io/keycloak/keycloak:21.1
     entrypoint: ["/opt/keycloak/bin/kc.sh", "start-dev", "--import-realm"]
     volumes:
       - "./keycloak/data:/opt/keycloak/data"
